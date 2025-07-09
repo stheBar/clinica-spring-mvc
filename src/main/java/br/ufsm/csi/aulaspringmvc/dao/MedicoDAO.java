@@ -1,11 +1,13 @@
 package br.ufsm.csi.aulaspringmvc.dao;
 import br.ufsm.csi.aulaspringmvc.model.Medico;
 import br.ufsm.csi.aulaspringmvc.model.Usuario;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MedicoDAO {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
