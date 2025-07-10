@@ -13,12 +13,12 @@ import java.util.List;
 public class PacienteDAO {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    /** Insere um paciente (e seu usuário) e devolve o objeto com ID preenchido */
+    // Insere um paciente (e seu usuário) e devolve o objeto com ID preenchido
     public Paciente create(Paciente paciente) throws ClassNotFoundException, SQLException {
-        // 1) cria o registro em usuario (preenche paciente.id)
+        //cria o registro em usuario (preenche paciente.id)
         usuarioDAO.create(paciente);
 
-        // 2) insere em paciente(id, historico)
+        // insere em paciente(id, historico)
         String sql = "INSERT INTO paciente (id, historico) VALUES (?, ?)";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -29,7 +29,7 @@ public class PacienteDAO {
         return paciente;
     }
 
-    /** Busca um paciente por ID (já carrega o usuário base) */
+    // Busca um paciente por ID (já carrega o usuário base)
     public Paciente findById(int id) throws ClassNotFoundException, SQLException {
         String sql = "SELECT historico FROM paciente WHERE id = ?";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
@@ -57,7 +57,7 @@ public class PacienteDAO {
         return null;
     }
 
-    /** Lista todos os pacientes */
+    //Lista todos os pacientes
     public List<Paciente> findAll() throws ClassNotFoundException, SQLException {
         List<Paciente> list = new ArrayList<>();
         String sql = "SELECT id FROM paciente";
@@ -75,12 +75,12 @@ public class PacienteDAO {
         return list;
     }
 
-    /** Atualiza paciente e usuário base */
+    // Atualiza paciente e usuário base
     public boolean update(Paciente paciente) throws ClassNotFoundException, SQLException {
-        // 1) atualiza campos em usuario
+        //atualiza campos em usuario
         boolean uOk = usuarioDAO.update(paciente);
 
-        // 2) atualiza historico em paciente
+        //atualiza historico em paciente
         String sql = "UPDATE paciente SET historico = ? WHERE id = ?";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -94,14 +94,14 @@ public class PacienteDAO {
 
     /** Remove paciente e usuário base */
     public boolean delete(int id) throws ClassNotFoundException, SQLException {
-        // 1) remove de paciente
+        //remove de paciente
         String sql = "DELETE FROM paciente WHERE id = ?";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
-        // 2) remove de usuario
+        // remove de usuario
         return usuarioDAO.delete(id);
     }
 

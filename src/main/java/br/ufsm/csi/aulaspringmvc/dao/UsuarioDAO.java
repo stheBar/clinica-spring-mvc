@@ -11,9 +11,7 @@ import java.util.List;
 @Repository
 public class UsuarioDAO {
 
-    /**
-     * Insere um novo usuário no banco e retorna o usuário com o ID gerado.
-     */
+    //Insere um novo usuário no banco e retorna o usuário com o ID gerado.
     public Usuario create(Usuario usuario) throws ClassNotFoundException, SQLException {
         String sql = "INSERT INTO usuario (email, senha, nome, cpf, admin) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
@@ -39,9 +37,8 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    /**
-     * Busca um usuário pelo seu ID.
-     */
+    //Busca um usuário pelo seu ID
+
     public Usuario findById(int id) throws ClassNotFoundException, SQLException {
         String sql = "SELECT id, email, senha, nome, cpf, admin FROM usuario WHERE id = ?";
         Usuario usuario = null;
@@ -59,9 +56,8 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    /**
-     * Retorna todos os usuários cadastrados.
-     */
+    //Retorna todos os usuários cadastrados.
+
     public List<Usuario> findAll() throws ClassNotFoundException, SQLException {
         String sql = "SELECT id, email, senha, nome, cpf, admin FROM usuario";
         List<Usuario> lista = new ArrayList<>();
@@ -77,9 +73,7 @@ public class UsuarioDAO {
         return lista;
     }
 
-    /**
-     * Atualiza os dados de um usuário existente.
-     */
+    //Atualiza os dados de um usuário existente
     public boolean update(Usuario usuario) throws ClassNotFoundException, SQLException {
         String sql = "UPDATE usuario SET email = ?, senha = ?, nome = ?, cpf = ?, admin = ? WHERE id = ?";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
@@ -97,9 +91,8 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Remove um usuário pelo seu ID.
-     */
+    //Remove um usuário pelo seu ID.
+
     public boolean delete(int id) throws ClassNotFoundException, SQLException {
         String sql = "DELETE FROM usuario WHERE id = ?";
         try (Connection conn = ConexaoBD.conectarBancoPostgres();
@@ -111,9 +104,8 @@ public class UsuarioDAO {
         }
     }
 
-    /**
-     * Converte a linha do ResultSet em um objeto Usuario.
-     */
+    //Converte a linha do ResultSet em um objeto Usuario.
+
     private Usuario mapRowToUsuario(ResultSet rs) throws SQLException {
         Usuario u = new Usuario();
         u.setId(rs.getInt("id"));

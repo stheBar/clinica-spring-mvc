@@ -74,7 +74,7 @@ public class AdminController {
         model.addAttribute("dataHorarioValue", dataHorarioValue);
         model.addAttribute("medicos", medicoService.listarTodos());
         model.addAttribute("pacientes", pacienteService.listarTodos());
-        return "pages/admin/consulta_form"; // Nome do seu JSP de formulário
+        return "pages/admin/consulta_form";
     }
 
     @PostMapping("/consulta/save")
